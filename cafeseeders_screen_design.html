@@ -1,0 +1,1621 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CafeSeeders — 화면설계서 v1.0</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=DM+Sans:wght@300;400;500;600;700&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --espresso:   #1C1008;
+  --roast:      #3D1E08;
+  --caramel:    #C97A2F;
+  --caramel-lt: #F5E6D3;
+  --sage:       #4A6741;
+  --sage-lt:    #D6E8D3;
+  --sage-pale:  #F2F7F1;
+  --cream:      #FDF6EC;
+  --warm-white: #FFFCF8;
+  --gray-700:   #4B3F35;
+  --gray-500:   #7D6E63;
+  --gray-300:   #D6C9BB;
+  --gray-100:   #F2EDE8;
+  --ann:        #E03E2D;
+  --blue:       #2563EB;
+  --gold:       #C97A2F;
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+
+body {
+  font-family: 'DM Sans', 'Noto Sans KR', sans-serif;
+  background: #F7F3EE;
+  color: var(--gray-700);
+  line-height: 1.6;
+}
+
+/* ─── DOC HEADER ──────────────────────────────────────── */
+.doc-hdr {
+  background: var(--espresso);
+  padding: 0 48px;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 2px 20px rgba(0,0,0,.4);
+}
+.doc-hdr-logo {
+  font-family: 'Playfair Display', serif;
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--caramel);
+  letter-spacing: -.3px;
+}
+.doc-hdr-logo span { color: rgba(255,255,255,.5); font-size: 14px; font-family: 'DM Sans', sans-serif; font-weight: 400; margin-left: 10px; }
+.doc-hdr-meta { font-size: 12px; color: rgba(255,255,255,.4); text-align: right; line-height: 1.7; }
+
+/* ─── LAYOUT ──────────────────────────────────────────── */
+.layout { display: flex; min-height: calc(100vh - 64px); }
+
+/* ─── SIDEBAR ─────────────────────────────────────────── */
+.sidebar {
+  width: 232px;
+  flex-shrink: 0;
+  background: var(--warm-white);
+  border-right: 1px solid var(--gray-300);
+  position: sticky;
+  top: 64px;
+  height: calc(100vh - 64px);
+  overflow-y: auto;
+  padding: 24px 0 40px;
+}
+.sb-label {
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: 1.8px;
+  text-transform: uppercase;
+  color: var(--gray-500);
+  padding: 16px 20px 6px;
+}
+.sidebar a {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 20px;
+  font-size: 12.5px;
+  color: var(--gray-700);
+  text-decoration: none;
+  border-left: 3px solid transparent;
+  transition: all .18s;
+}
+.sidebar a .scr-id {
+  font-size: 9.5px;
+  background: var(--gray-100);
+  color: var(--gray-500);
+  padding: 1px 5px;
+  border-radius: 3px;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+.sidebar a:hover, .sidebar a.active {
+  background: var(--caramel-lt);
+  border-left-color: var(--caramel);
+  color: var(--roast);
+  font-weight: 600;
+}
+.sidebar a.active .scr-id { background: var(--caramel); color: white; }
+
+/* ─── MAIN ────────────────────────────────────────────── */
+.main { flex: 1; padding: 48px 56px; max-width: 1080px; }
+
+/* ─── SECTION ─────────────────────────────────────────── */
+.scr-section { margin-bottom: 80px; scroll-margin-top: 88px; }
+
+.scr-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 14px;
+}
+.scr-badge {
+  background: var(--espresso);
+  color: var(--caramel);
+  font-size: 10px;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 4px;
+  letter-spacing: 1px;
+  font-family: 'DM Sans', sans-serif;
+}
+.scr-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--espresso);
+}
+.scr-desc {
+  font-size: 12.5px;
+  color: var(--gray-500);
+  background: var(--cream);
+  border-left: 4px solid var(--caramel);
+  padding: 11px 16px;
+  border-radius: 0 6px 6px 0;
+  margin-bottom: 22px;
+  line-height: 1.7;
+}
+
+/* ─── WIREFRAME SHELL ─────────────────────────────────── */
+.wf-shell {
+  background: white;
+  border: 1.5px solid var(--gray-300);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 6px 28px rgba(28,16,8,.09);
+  margin-bottom: 22px;
+}
+.browser-bar {
+  background: #E8E2DC;
+  padding: 9px 14px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  border-bottom: 1px solid var(--gray-300);
+}
+.b-dot { width: 10px; height: 10px; border-radius: 50%; }
+.b-dot.r { background: #FF5F57; }
+.b-dot.y { background: #FFBD2E; }
+.b-dot.g { background: #28C840; }
+.b-url {
+  margin-left: 8px;
+  background: white;
+  border: 1px solid var(--gray-300);
+  border-radius: 4px;
+  padding: 3px 12px;
+  font-size: 11px;
+  color: var(--gray-500);
+  flex: 1;
+}
+
+/* ─── ANNOTATION ──────────────────────────────────────── */
+.ann-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-top: 18px;
+}
+.ann-item {
+  display: flex;
+  gap: 10px;
+  background: white;
+  border: 1px solid var(--gray-300);
+  border-radius: 8px;
+  padding: 11px 13px;
+  font-size: 12px;
+}
+.ann-dot {
+  width: 22px; height: 22px;
+  background: var(--ann);
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 11px;
+  flex-shrink: 0;
+}
+.ann-item strong { display: block; color: var(--espresso); margin-bottom: 2px; font-size: 12.5px; }
+.ann-item span { color: var(--gray-500); line-height: 1.5; }
+
+/* ─── DIVIDER ─────────────────────────────────────────── */
+.divider {
+  height: 1px;
+  background: linear-gradient(90deg, var(--caramel) 0%, transparent 100%);
+  margin: 64px 0 52px;
+}
+
+/* ═══════════════════════════════════════════════════════
+   WIREFRAME UI COMPONENTS
+═══════════════════════════════════════════════════════ */
+
+/* NAV */
+.wf-nav {
+  background: var(--espresso);
+  height: 54px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 28px;
+}
+.wf-logo {
+  font-family: 'Playfair Display', serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--caramel);
+}
+.wf-logo em { color: rgba(255,255,255,.5); font-style: normal; font-size: 13px; font-family: 'DM Sans', sans-serif; font-weight: 300; margin-left: 6px; }
+.nav-links { display: flex; gap: 2px; }
+.nav-links a {
+  font-size: 12px;
+  color: rgba(255,255,255,.65);
+  padding: 5px 11px;
+  border-radius: 4px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all .15s;
+}
+.nav-links a:hover { color: white; background: rgba(255,255,255,.1); }
+.nav-links a.on { color: white; background: var(--caramel); }
+.nav-right { display: flex; gap: 8px; align-items: center; }
+
+/* BUTTONS */
+.btn { padding: 6px 14px; border-radius: 5px; font-size: 11.5px; font-weight: 600; border: none; cursor: pointer; font-family: 'DM Sans', sans-serif; }
+.btn-ghost { background: transparent; border: 1.5px solid rgba(255,255,255,.35); color: rgba(255,255,255,.8); }
+.btn-cta { background: var(--caramel); color: white; }
+.btn-sage { background: var(--sage); color: white; }
+.btn-outline-sage { background: transparent; border: 1.5px solid var(--sage); color: var(--sage); }
+.btn-full { width: 100%; padding: 10px; border-radius: 6px; font-size: 13px; font-weight: 700; border: none; cursor: pointer; font-family: inherit; }
+
+/* HERO */
+.wf-hero {
+  background: linear-gradient(135deg, var(--espresso) 0%, var(--roast) 55%, #6B3A1A 100%);
+  padding: 52px 28px 44px;
+  position: relative;
+  overflow: hidden;
+}
+.wf-hero::after {
+  content: '';
+  position: absolute;
+  right: -80px; top: -80px;
+  width: 340px; height: 340px;
+  border-radius: 50%;
+  background: rgba(201,122,47,.08);
+}
+.hero-eyebrow {
+  display: inline-block;
+  background: var(--caramel);
+  color: white;
+  font-size: 10px;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: 20px;
+  letter-spacing: .5px;
+  margin-bottom: 12px;
+}
+.wf-hero h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 30px;
+  font-weight: 800;
+  color: white;
+  line-height: 1.25;
+  margin-bottom: 10px;
+}
+.wf-hero p { font-size: 12.5px; color: rgba(255,255,255,.6); max-width: 480px; margin-bottom: 22px; }
+.hero-search {
+  background: white;
+  border-radius: 8px;
+  padding: 5px 5px 5px 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  max-width: 540px;
+  box-shadow: 0 6px 22px rgba(0,0,0,.25);
+}
+.hero-search select {
+  border: none;
+  font-size: 12px;
+  color: var(--gray-700);
+  background: none;
+  padding: 5px 8px;
+  border-right: 1px solid var(--gray-300);
+  outline: none;
+  font-family: inherit;
+}
+.hero-search input {
+  border: none;
+  flex: 1;
+  font-size: 12.5px;
+  outline: none;
+  color: var(--gray-700);
+  font-family: inherit;
+}
+.hero-search button {
+  background: var(--caramel);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 9px 18px;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: inherit;
+  white-space: nowrap;
+}
+.hero-stats { display: flex; gap: 28px; margin-top: 26px; }
+.hero-stat strong { display: block; font-size: 22px; font-weight: 800; color: white; }
+.hero-stat span { font-size: 10.5px; color: rgba(255,255,255,.5); }
+
+/* SECTION HEADER */
+.wf-sh {
+  padding: 20px 28px 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--gray-100);
+}
+.wf-sh h2 { font-size: 15.5px; font-weight: 700; color: var(--espresso); font-family: 'Playfair Display', serif; }
+.wf-sh a { font-size: 11.5px; color: var(--caramel); font-weight: 600; text-decoration: none; }
+
+/* CARD GRIDS */
+.card-grid { padding: 16px 28px; display: grid; gap: 14px; }
+.g3 { grid-template-columns: repeat(3,1fr); }
+.g4 { grid-template-columns: repeat(4,1fr); }
+.g2 { grid-template-columns: repeat(2,1fr); }
+.g5 { grid-template-columns: repeat(5,1fr); }
+
+/* LISTING CARD */
+.lc {
+  border: 1px solid var(--gray-300);
+  border-radius: 10px;
+  overflow: hidden;
+  background: white;
+  transition: box-shadow .2s, transform .2s;
+}
+.lc:hover { box-shadow: 0 4px 18px rgba(28,16,8,.12); transform: translateY(-2px); }
+.lc-img {
+  height: 110px;
+  background: linear-gradient(135deg,#F5E6D3,#D4A96A);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 30px;
+  position: relative;
+}
+.lc-badge {
+  position: absolute;
+  top: 7px; left: 7px;
+  font-size: 9.5px;
+  font-weight: 700;
+  padding: 2px 7px;
+  border-radius: 4px;
+  background: var(--caramel);
+  color: white;
+}
+.lc-badge.prem { background: var(--espresso); color: var(--caramel); }
+.lc-body { padding: 11px 12px; }
+.lc-title { font-size: 12.5px; font-weight: 700; color: var(--espresso); margin-bottom: 3px; }
+.lc-loc { font-size: 10.5px; color: var(--gray-500); margin-bottom: 7px; }
+.lc-price { font-size: 16px; font-weight: 800; color: var(--caramel); }
+.lc-tags { display: flex; gap: 5px; margin-top: 7px; flex-wrap: wrap; }
+.lc-tag {
+  font-size: 9.5px;
+  background: var(--cream);
+  color: var(--roast);
+  padding: 2px 7px;
+  border-radius: 4px;
+  font-weight: 500;
+}
+
+/* CONTENT CARD */
+.cc { border: 1px solid var(--gray-300); border-radius: 10px; overflow: hidden; background: white; }
+.cc-img {
+  height: 88px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 26px;
+}
+.cc-img.caramel  { background: linear-gradient(135deg,#F5E6D3,#C97A2F33); }
+.cc-img.sage     { background: linear-gradient(135deg,#D6E8D3,#4A674133); }
+.cc-img.espresso { background: linear-gradient(135deg,#E8DDD5,#3D1E0833); }
+.cc-img.cream    { background: linear-gradient(135deg,#FDF6EC,#C97A2F22); }
+.cc-body { padding: 11px 12px; }
+.cc-tag { font-size: 9.5px; color: var(--caramel); font-weight: 700; margin-bottom: 4px; letter-spacing: .3px; }
+.cc-title { font-size: 12px; font-weight: 600; color: var(--espresso); line-height: 1.4; }
+.cc-meta { font-size: 10.5px; color: var(--gray-500); margin-top: 5px; }
+
+/* FILTER BAR */
+.filter-bar {
+  padding: 12px 28px;
+  background: var(--cream);
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  align-items: center;
+  border-bottom: 1px solid var(--gray-300);
+}
+.fl { font-size: 11.5px; font-weight: 700; color: var(--roast); }
+.chip {
+  background: white;
+  border: 1px solid var(--gray-300);
+  border-radius: 20px;
+  padding: 4px 12px;
+  font-size: 11px;
+  color: var(--gray-700);
+  cursor: pointer;
+  transition: all .15s;
+}
+.chip.on { background: var(--caramel); color: white; border-color: var(--caramel); }
+
+/* AD ZONE */
+.ad-zone {
+  margin: 0 28px 16px;
+  border: 2px dashed var(--gray-300);
+  border-radius: 8px;
+  padding: 14px;
+  text-align: center;
+  background: var(--gray-100);
+  position: relative;
+}
+.ad-label {
+  position: absolute;
+  top: -10px; left: 14px;
+  background: var(--ann);
+  color: white;
+  font-size: 9.5px;
+  font-weight: 700;
+  padding: 1px 8px;
+  border-radius: 4px;
+  letter-spacing: .4px;
+}
+.ad-inner {
+  background: linear-gradient(135deg,var(--cream),var(--caramel-lt));
+  border: 1px solid var(--caramel);
+  border-radius: 5px;
+  padding: 11px 22px;
+  font-size: 12px;
+  color: var(--roast);
+  font-weight: 600;
+}
+
+/* TABS */
+.wf-tabs { display: flex; padding: 0 28px; border-bottom: 2px solid var(--gray-300); background: white; }
+.wf-tab {
+  padding: 11px 18px;
+  font-size: 12.5px;
+  font-weight: 500;
+  color: var(--gray-500);
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -2px;
+}
+.wf-tab.on { color: var(--caramel); border-bottom-color: var(--caramel); font-weight: 700; }
+
+/* FORM */
+.wf-form { padding: 22px 28px; }
+.fl-grp { margin-bottom: 14px; }
+.fl-label { font-size: 11.5px; font-weight: 600; color: var(--gray-700); margin-bottom: 5px; display: block; }
+.fl-input {
+  width: 100%;
+  border: 1px solid var(--gray-300);
+  border-radius: 6px;
+  padding: 8px 12px;
+  font-size: 12.5px;
+  color: var(--gray-700);
+  font-family: inherit;
+  outline: none;
+  background: var(--warm-white);
+}
+.fl-input:focus { border-color: var(--caramel); }
+.fl-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.fl-ta { min-height: 72px; resize: none; }
+
+/* STEP INDICATOR */
+.steps {
+  background: var(--cream);
+  padding: 20px 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  border-bottom: 1px solid var(--gray-300);
+}
+.step { display: flex; flex-direction: column; align-items: center; gap: 5px; }
+.step-num {
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 800; font-size: 13px; color: white;
+}
+.step-num.done { background: var(--caramel); }
+.step-num.todo { background: var(--gray-300); color: var(--gray-500); }
+.step-lbl { font-size: 10.5px; font-weight: 600; }
+.step-lbl.done { color: var(--caramel); }
+.step-lbl.todo { color: var(--gray-500); }
+.step-line { flex: 1; height: 2px; margin: 0 8px; margin-bottom: 18px; }
+.step-line.done { background: var(--caramel); }
+.step-line.todo { background: var(--gray-300); }
+
+/* VENDOR CARD */
+.vc {
+  border: 1px solid var(--gray-300);
+  border-radius: 10px;
+  padding: 14px;
+  background: white;
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+.vc.gold { border: 1.5px solid var(--caramel); background: var(--caramel-lt); }
+.vc-icon {
+  width: 42px; height: 42px;
+  border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 20px; flex-shrink: 0;
+}
+.vc-info h4 { font-size: 12.5px; font-weight: 700; color: var(--espresso); }
+.vc-info p { font-size: 11px; color: var(--gray-500); margin-top: 2px; line-height: 1.4; }
+.vc-cat { font-size: 10px; color: var(--caramel); font-weight: 700; margin-top: 5px; }
+
+/* PRICING CARD */
+.pc {
+  border: 1.5px solid var(--gray-300);
+  border-radius: 12px;
+  padding: 22px;
+  background: white;
+  position: relative;
+}
+.pc.popular { border-color: var(--caramel); background: var(--cream); }
+.pc.gold-plan { border-color: var(--caramel); background: var(--caramel-lt); }
+.pc-tier { font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 5px; }
+.pc-price { font-size: 28px; font-weight: 800; color: var(--espresso); }
+.pc-price span { font-size: 13px; font-weight: 400; color: var(--gray-500); }
+.pc-sub { font-size: 11.5px; color: var(--gray-500); margin-bottom: 14px; }
+.pc-feat { font-size: 11.5px; color: var(--gray-700); line-height: 2.1; }
+.popular-badge {
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--caramel);
+  color: white;
+  font-size: 10px;
+  font-weight: 700;
+  padding: 2px 12px;
+  border-radius: 20px;
+  white-space: nowrap;
+}
+
+/* GUIDE CARD */
+.gc {
+  background: white;
+  border: 1px solid var(--gray-300);
+  border-radius: 10px;
+  padding: 18px;
+  cursor: pointer;
+  transition: box-shadow .2s;
+}
+.gc:hover { box-shadow: 0 4px 16px rgba(28,16,8,.1); }
+.gc-icon { font-size: 26px; margin-bottom: 8px; }
+.gc-title { font-size: 13px; font-weight: 700; color: var(--espresso); margin-bottom: 4px; }
+.gc-sub { font-size: 11px; color: var(--gray-500); line-height: 1.5; }
+.gc-count { font-size: 10.5px; color: var(--caramel); font-weight: 700; margin-top: 8px; }
+
+/* SPEC TABLE */
+.spec-tbl { width: 100%; border-collapse: collapse; font-size: 12px; }
+.spec-tbl th { background: var(--espresso); color: var(--caramel); padding: 9px 13px; text-align: left; font-weight: 600; }
+.spec-tbl td { padding: 8px 13px; border-bottom: 1px solid var(--gray-300); color: var(--gray-700); }
+.spec-tbl tr:nth-child(even) td { background: var(--gray-100); }
+
+/* FLOW BOX */
+.flow-wrap { background: white; border: 1px solid var(--gray-300); border-radius: 12px; padding: 24px; margin-bottom: 22px; }
+.flow-wrap h3 { font-family: 'Playfair Display', serif; font-size: 15px; font-weight: 700; color: var(--espresso); margin-bottom: 16px; }
+.flow-row { display: flex; gap: 7px; align-items: center; flex-wrap: wrap; margin-bottom: 10px; }
+.fb {
+  background: var(--sage-pale);
+  border: 1.5px solid var(--sage);
+  border-radius: 7px;
+  padding: 7px 14px;
+  font-size: 11.5px;
+  font-weight: 600;
+  color: var(--sage);
+  text-align: center;
+  min-width: 90px;
+}
+.fb.start { background: var(--espresso); color: var(--caramel); border-color: var(--espresso); }
+.fb.end   { background: var(--caramel-lt); border-color: var(--caramel); color: var(--roast); }
+.fb.dec   { background: #FFF8EF; border-color: var(--caramel); }
+.farrow   { color: var(--gray-500); font-size: 14px; }
+
+/* FOOTER */
+.wf-footer {
+  background: var(--espresso);
+  padding: 28px;
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 22px;
+  font-size: 11.5px;
+  color: rgba(255,255,255,.45);
+}
+.wf-footer h4 { color: var(--caramel); font-size: 13px; margin-bottom: 9px; font-family: 'Playfair Display', serif; }
+.wf-footer p { line-height: 1.9; }
+
+/* COLOR SWATCH */
+.swatch { width: 100%; height: 44px; border-radius: 7px; margin-bottom: 5px; }
+
+/* SCROLLBAR */
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: var(--gray-100); }
+::-webkit-scrollbar-thumb { background: var(--caramel); border-radius: 3px; }
+</style>
+</head>
+<body>
+
+<!-- DOC HEADER -->
+<header class="doc-hdr">
+  <div class="doc-hdr-logo">☕ CafeSeeders <span>화면설계서 (Screen Design) — v1.0</span></div>
+  <div class="doc-hdr-meta">cafeseeders.com · Powered by Naturetea · 2025 &nbsp;|&nbsp; Kwangjei Cho · DRE# 02217090 · Insurance Lic# 4349201</div>
+</header>
+
+<div class="layout">
+<!-- SIDEBAR -->
+<nav class="sidebar">
+  <div class="sb-label">개요 / Overview</div>
+  <a href="#overview"><span class="scr-id">MAP</span> 사이트맵 & 구조도</a>
+  <a href="#flows"><span class="scr-id">FLW</span> 사용자 플로우</a>
+  <div class="sb-label">주요 화면</div>
+  <a href="#s001"><span class="scr-id">001</span> 홈 (Home)</a>
+  <a href="#s002"><span class="scr-id">002</span> 마켓플레이스</a>
+  <a href="#s003"><span class="scr-id">003</span> 매물 상세</a>
+  <a href="#s004"><span class="scr-id">004</span> 매물 등록</a>
+  <a href="#s005"><span class="scr-id">005</span> 창업 가이드</a>
+  <a href="#s006"><span class="scr-id">006</span> 트렌드 & 레시피</a>
+  <a href="#s007"><span class="scr-id">007</span> 벤더 디렉토리</a>
+  <a href="#s008"><span class="scr-id">008</span> 광고 신청</a>
+  <a href="#s009"><span class="scr-id">009</span> 마이페이지</a>
+  <a href="#s010"><span class="scr-id">010</span> Compliance 고지</a>
+  <div class="sb-label">라이선스 / License</div>
+  <div style="padding:10px 16px;font-size:10.5px;line-height:1.8;color:var(--gray-500);border-top:1px solid var(--gray-300);margin-top:4px;">
+    <strong style="color:var(--roast);display:block;margin-bottom:3px;">Kwangjei Cho</strong>
+    DRE# 02217090<br>
+    Insurance Lic# 4349201<br>
+    <span style="color:var(--caramel);font-weight:600;">cafeseeders.com</span>
+  </div>
+  <a href="#spec-nav"><span class="scr-id">SPC</span> 공통 내비게이션</a>
+  <a href="#spec-ads"><span class="scr-id">SPC</span> 광고 존 명세</a>
+  <a href="#spec-color"><span class="scr-id">SPC</span> 컬러 & 타이포</a>
+</nav>
+
+<!-- MAIN CONTENT -->
+<main class="main">
+
+<!-- ══════════════════════════════════════════
+     SITEMAP
+══════════════════════════════════════════ -->
+<div class="scr-section" id="overview">
+  <div class="scr-header"><span class="scr-badge">SITEMAP</span><span class="scr-title">플랫폼 구조도 & 사이트맵</span></div>
+  <div class="scr-desc">CafeSeeders의 전체 페이지 구조, 모듈 관계, 사용자 타입별 접근 권한을 정의합니다.</div>
+
+  <div class="flow-wrap">
+    <h3>📐 사이트맵 (Site Architecture)</h3>
+    <div style="text-align:center;background:var(--espresso);color:var(--caramel);padding:12px;border-radius:8px;font-weight:700;font-family:'Playfair Display',serif;font-size:15px;margin-bottom:12px;">
+      ☕ cafeseeders.com — Home
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-bottom:10px;">
+      <div style="background:var(--cream);border:1.5px solid var(--caramel);border-radius:8px;padding:14px;text-align:center;">
+        <div style="font-size:20px;margin-bottom:5px;">🏪</div>
+        <div style="font-size:11.5px;font-weight:700;color:var(--espresso);">Marketplace</div>
+        <div style="font-size:10px;color:var(--gray-500);margin-top:3px;">카페 매매</div>
+      </div>
+      <div style="background:var(--cream);border:1.5px solid var(--caramel);border-radius:8px;padding:14px;text-align:center;">
+        <div style="font-size:20px;margin-bottom:5px;">🌱</div>
+        <div style="font-size:11.5px;font-weight:700;color:var(--espresso);">Startup Guide</div>
+        <div style="font-size:10px;color:var(--gray-500);margin-top:3px;">창업 정보</div>
+      </div>
+      <div style="background:var(--cream);border:1.5px solid var(--caramel);border-radius:8px;padding:14px;text-align:center;">
+        <div style="font-size:20px;margin-bottom:5px;">☕</div>
+        <div style="font-size:11.5px;font-weight:700;color:var(--espresso);">Trends & Recipes</div>
+        <div style="font-size:10px;color:var(--gray-500);margin-top:3px;">트렌드/레시피</div>
+      </div>
+      <div style="background:var(--cream);border:1.5px solid var(--caramel);border-radius:8px;padding:14px;text-align:center;">
+        <div style="font-size:20px;margin-bottom:5px;">🏢</div>
+        <div style="font-size:11.5px;font-weight:700;color:var(--espresso);">Vendor Directory</div>
+        <div style="font-size:10px;color:var(--gray-500);margin-top:3px;">벤더 정보</div>
+      </div>
+      <div style="background:var(--caramel-lt);border:1.5px solid var(--caramel);border-radius:8px;padding:14px;text-align:center;">
+        <div style="font-size:20px;margin-bottom:5px;">📣</div>
+        <div style="font-size:11.5px;font-weight:700;color:var(--espresso);">Advertise</div>
+        <div style="font-size:10px;color:var(--gray-500);margin-top:3px;">광고 신청</div>
+      </div>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:10px;font-size:10.5px;color:var(--gray-500);text-align:center;">
+      <div style="background:var(--gray-100);border-radius:6px;padding:9px;line-height:1.8;">매물 리스트<br>매물 상세<br>매물 등록<br>즐겨찾기</div>
+      <div style="background:var(--gray-100);border-radius:6px;padding:9px;line-height:1.8;">카페 인수 요령<br>장비 구매 가이드<br>구인 방법<br>리모델링 가이드</div>
+      <div style="background:var(--gray-100);border-radius:6px;padding:9px;line-height:1.8;">트렌드 뉴스<br>음료 레시피<br>계절 메뉴<br>콘텐츠 상세</div>
+      <div style="background:var(--gray-100);border-radius:6px;padding:9px;line-height:1.8;">카테고리 탐색<br>업체 상세<br>리뷰 시스템<br>등록 신청</div>
+      <div style="background:var(--gray-100);border-radius:6px;padding:9px;line-height:1.8;">광고 패키지<br>견적 요청<br>소재 업로드<br>집행 현황</div>
+    </div>
+    <div style="margin-top:16px;">
+      <table class="spec-tbl">
+        <tr><th>사용자 타입</th><th>주요 접근 기능</th><th>비고</th></tr>
+        <tr><td>비회원</td><td>브라우징 · 콘텐츠 열람 · 기본 검색</td><td>문의 시 회원가입 유도</td></tr>
+        <tr><td>일반 회원</td><td>매물 문의 · 즐겨찾기 · 뉴스레터 구독</td><td>무료 가입</td></tr>
+        <tr><td>셀러 (카페 오너)</td><td>매물 등록 · 관리 · 수정 · 삭제</td><td>무료/유료 리스팅</td></tr>
+        <tr><td>벤더</td><td>디렉토리 등록 · 광고 신청</td><td>프리미엄 유료</td></tr>
+        <tr><td>관리자</td><td>전체 콘텐츠 관리 · 광고 승인 · 통계</td><td>내부 전용</td></tr>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     USER FLOWS
+══════════════════════════════════════════ -->
+<div class="scr-section" id="flows">
+  <div class="scr-header"><span class="scr-badge">FLOW</span><span class="scr-title">주요 사용자 플로우</span></div>
+  <div class="scr-desc">핵심 사용자 시나리오별 화면 이동 경로를 정의합니다.</div>
+  <div class="flow-wrap">
+    <h3>Flow 1 — 카페 매물 등록 (셀러)</h3>
+    <div class="flow-row">
+      <div class="fb start">방문</div><div class="farrow">→</div>
+      <div class="fb">회원가입/로그인</div><div class="farrow">→</div>
+      <div class="fb">매물 등록 클릭</div><div class="farrow">→</div>
+      <div class="fb">카페 정보 입력</div><div class="farrow">→</div>
+      <div class="fb">재무 정보 입력</div><div class="farrow">→</div>
+      <div class="fb dec">플랜 선택</div><div class="farrow">→</div>
+      <div class="fb end">리스팅 게시 완료</div>
+    </div>
+    <div style="font-size:11px;color:var(--gray-500);padding-left:4px;">플랜: 무료(30일) / 프리미엄 $49 / 엘리트 $149</div>
+  </div>
+  <div class="flow-wrap">
+    <h3>Flow 2 — 카페 매물 탐색 & 문의 (바이어)</h3>
+    <div class="flow-row">
+      <div class="fb start">방문</div><div class="farrow">→</div>
+      <div class="fb">검색 / 필터</div><div class="farrow">→</div>
+      <div class="fb">매물 리스트</div><div class="farrow">→</div>
+      <div class="fb">매물 상세</div><div class="farrow">→</div>
+      <div class="fb dec">로그인 여부</div><div class="farrow">→</div>
+      <div class="fb end">셀러 문의 전송</div>
+    </div>
+  </div>
+  <div class="flow-wrap">
+    <h3>Flow 3 — 벤더 광고 신청</h3>
+    <div class="flow-row">
+      <div class="fb start">방문</div><div class="farrow">→</div>
+      <div class="fb">Advertise 메뉴</div><div class="farrow">→</div>
+      <div class="fb">패키지 선택</div><div class="farrow">→</div>
+      <div class="fb">문의 폼 작성</div><div class="farrow">→</div>
+      <div class="fb">담당자 컨택</div><div class="farrow">→</div>
+      <div class="fb">소재 업로드</div><div class="farrow">→</div>
+      <div class="fb end">광고 집행 시작</div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ══════════════════════════════════════════
+     SCR-001: HOME
+══════════════════════════════════════════ -->
+<div class="scr-section" id="s001">
+  <div class="scr-header"><span class="scr-badge">SCR-001</span><span class="scr-title">홈 (Home)</span></div>
+  <div class="scr-desc">플랫폼 메인 진입점. 히어로 검색 · 퀵 카테고리 · 피처드 매물 · 트렌딩 콘텐츠 · 배너 광고 존 · 뉴스레터 구독 포함.</div>
+
+  <div class="wf-shell">
+    <div class="browser-bar">
+      <div class="b-dot r"></div><div class="b-dot y"></div><div class="b-dot g"></div>
+      <div class="b-url">cafeseeders.com</div>
+    </div>
+
+    <!-- NAV -->
+    <div class="wf-nav">
+      <div class="wf-logo">☕ CafeSeeders <em>· SoCal Cafe Marketplace</em></div>
+      <div class="nav-links">
+        <a class="on">Marketplace</a><a>Startup Guide</a><a>Trends & Recipes</a><a>Vendors</a><a>Advertise</a>
+      </div>
+      <div class="nav-right">
+        <button class="btn btn-ghost">Log In</button>
+        <button class="btn btn-cta">List My Cafe</button>
+      </div>
+    </div>
+
+    <!-- HERO -->
+    <div class="wf-hero">
+      <div class="hero-eyebrow">① SoCal's #1 Cafe Marketplace — Powered by Naturetea</div>
+      <h1>Seed Your Cafe Dream.<br>Grow. Then Harvest.</h1>
+      <p>남가주 카페 매물 탐색부터 창업 정보, 트렌드까지 — CafeSeeders가 함께합니다.</p>
+      <div class="hero-search">
+        <select><option>All</option><option>For Sale</option><option>Guide</option><option>Vendor</option></select>
+        <input type="text" placeholder="② Search city, zip code, or cafe type..." />
+        <button>Search</button>
+      </div>
+      <div class="hero-stats">
+        <div class="hero-stat"><strong>120+</strong><span>Active Listings</span></div>
+        <div class="hero-stat"><strong>80+</strong><span>Verified Vendors</span></div>
+        <div class="hero-stat"><strong>500+</strong><span>Articles & Recipes</span></div>
+        <div class="hero-stat"><strong>70+</strong><span>Naturetea Partners</span></div>
+      </div>
+    </div>
+
+    <!-- AD BANNER -->
+    <div class="ad-zone" style="margin-top:16px;">
+      <div class="ad-label">③ 광고 존 — 728×90 히어로 하단 배너 ($1,200/월)</div>
+      <div class="ad-inner">🛠️ [SPONSOR] La Marzocco Official SoCal Distributor — Professional Espresso Machines for Your Cafe — Shop Now →</div>
+    </div>
+
+    <!-- QUICK CATEGORIES -->
+    <div class="card-grid g5" style="margin-top:4px;">
+      <div style="background:var(--cream);border:1px solid var(--gray-300);border-radius:10px;padding:16px;text-align:center;cursor:pointer;">
+        <div style="font-size:22px;margin-bottom:5px;">🏪</div>
+        <div style="font-size:12px;font-weight:700;color:var(--espresso);">④ Buy a Cafe</div>
+        <div style="font-size:10px;color:var(--gray-500);">Browse listings</div>
+      </div>
+      <div style="background:var(--cream);border:1px solid var(--gray-300);border-radius:10px;padding:16px;text-align:center;cursor:pointer;">
+        <div style="font-size:22px;margin-bottom:5px;">💰</div>
+        <div style="font-size:12px;font-weight:700;color:var(--espresso);">Sell My Cafe</div>
+        <div style="font-size:10px;color:var(--gray-500);">List in minutes</div>
+      </div>
+      <div style="background:var(--cream);border:1px solid var(--gray-300);border-radius:10px;padding:16px;text-align:center;cursor:pointer;">
+        <div style="font-size:22px;margin-bottom:5px;">🌱</div>
+        <div style="font-size:12px;font-weight:700;color:var(--espresso);">Start a Cafe</div>
+        <div style="font-size:10px;color:var(--gray-500);">Startup guide</div>
+      </div>
+      <div style="background:var(--cream);border:1px solid var(--gray-300);border-radius:10px;padding:16px;text-align:center;cursor:pointer;">
+        <div style="font-size:22px;margin-bottom:5px;">☕</div>
+        <div style="font-size:12px;font-weight:700;color:var(--espresso);">Recipes & Trends</div>
+        <div style="font-size:10px;color:var(--gray-500);">Latest content</div>
+      </div>
+      <div style="background:var(--caramel-lt);border:1px solid var(--caramel);border-radius:10px;padding:16px;text-align:center;cursor:pointer;">
+        <div style="font-size:22px;margin-bottom:5px;">🏢</div>
+        <div style="font-size:12px;font-weight:700;color:var(--espresso);">Find Vendors</div>
+        <div style="font-size:10px;color:var(--gray-500);">Equipment & more</div>
+      </div>
+    </div>
+
+    <!-- FEATURED LISTINGS -->
+    <div class="wf-sh"><h2>⑤ Featured Listings</h2><a>View All →</a></div>
+    <div class="card-grid g3">
+      <div class="lc">
+        <div class="lc-img">☕<span class="lc-badge prem">PREMIUM</span></div>
+        <div class="lc-body">
+          <div class="lc-title">Modern Specialty Cafe — Koreatown</div>
+          <div class="lc-loc">📍 Los Angeles · 900 sq ft</div>
+          <div class="lc-price">$185,000</div>
+          <div class="lc-tags"><span class="lc-tag">$28k/mo</span><span class="lc-tag">5yr Lease</span><span class="lc-tag">Turnkey</span></div>
+        </div>
+      </div>
+      <div class="lc">
+        <div class="lc-img">🧋<span class="lc-badge">NEW</span></div>
+        <div class="lc-body">
+          <div class="lc-title">Boba & Coffee Hybrid — Irvine</div>
+          <div class="lc-loc">📍 Irvine · 650 sq ft</div>
+          <div class="lc-price">$95,000</div>
+          <div class="lc-tags"><span class="lc-tag">$14k/mo</span><span class="lc-tag">Mall Location</span></div>
+        </div>
+      </div>
+      <div class="lc">
+        <div class="lc-img">🌿<span class="lc-badge prem">PREMIUM</span></div>
+        <div class="lc-body">
+          <div class="lc-title">Organic Health Cafe — Santa Monica</div>
+          <div class="lc-loc">📍 Santa Monica · 1,200 sq ft</div>
+          <div class="lc-price">$260,000</div>
+          <div class="lc-tags"><span class="lc-tag">$42k/mo</span><span class="lc-tag">Prime Corner</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TRENDING CONTENT -->
+    <div class="wf-sh" style="margin-top:6px;"><h2>⑥ Trending Now</h2><a>More Articles →</a></div>
+    <div class="card-grid g4">
+      <div class="cc"><div class="cc-img sage">🍵</div><div class="cc-body"><div class="cc-tag">RECIPE</div><div class="cc-title">Matcha Horchata Latte — Summer's #1 Drink</div><div class="cc-meta">5 min · 2.3k views</div></div></div>
+      <div class="cc"><div class="cc-img caramel">📊</div><div class="cc-body"><div class="cc-tag">TREND</div><div class="cc-title">2025 SoCal Cafe Trend Report</div><div class="cc-meta">8 min · 4.1k views</div></div></div>
+      <div class="cc"><div class="cc-img espresso">🔧</div><div class="cc-body"><div class="cc-tag">GUIDE</div><div class="cc-title">How to Buy Used Espresso Equipment</div><div class="cc-meta">6 min · 1.8k views</div></div></div>
+      <div class="cc"><div class="cc-img cream">📱</div><div class="cc-body"><div class="cc-tag">MARKETING</div><div class="cc-title">Instagram Strategy for LA Cafes 2025</div><div class="cc-meta">7 min · 3.2k views</div></div></div>
+    </div>
+
+    <!-- NEWSLETTER -->
+    <div style="background:var(--roast);padding:26px 28px;display:flex;align-items:center;justify-content:space-between;gap:24px;margin-top:8px;">
+      <div>
+        <div style="font-family:'Playfair Display',serif;color:var(--caramel);font-size:16px;font-weight:700;margin-bottom:3px;">⑦ Stay Ahead — Weekly Cafe Intel</div>
+        <div style="font-size:11.5px;color:rgba(255,255,255,.5);">매주 최신 매물·트렌드·벤더 소식을 받아보세요</div>
+      </div>
+      <div style="display:flex;gap:8px;">
+        <input type="email" placeholder="your@email.com" style="padding:8px 14px;border-radius:6px;border:none;font-size:12.5px;width:200px;font-family:inherit;">
+        <button style="background:var(--caramel);color:white;border:none;padding:8px 18px;border-radius:6px;font-weight:700;font-size:12.5px;cursor:pointer;font-family:inherit;">Subscribe</button>
+      </div>
+    </div>
+
+    <!-- FOOTER -->
+    <div class="wf-footer">
+      <div>
+        <h4>☕ CafeSeeders</h4>
+        <p>Southern California's premier platform for cafe buying, selling, and growing.<br>Powered by Naturetea · La Mirada, CA</p>
+        <div style="margin-top:10px;padding-top:10px;border-top:1px solid rgba(255,255,255,.15);font-size:10.5px;line-height:1.9;color:rgba(255,255,255,.35);">
+          <strong style="color:var(--caramel);display:block;margin-bottom:2px;">Kwangjei Cho</strong>
+          Real Estate Agent · DRE# 02217090<br>
+          Insurance License# 4349201<br>
+          <span style="font-size:10px;color:rgba(255,255,255,.25);">Real estate services conducted under CA DRE# 02217090. Insurance referrals provided under License# 4349201. Financial content is for informational purposes only and does not constitute financial advice.</span>
+        </div>
+      </div>
+      <div><h4>Marketplace</h4><p>Buy a Cafe<br>Sell My Cafe<br>Premium Listings<br>Free Listing</p></div>
+      <div><h4>Resources</h4><p>Startup Guide<br>Recipes & Trends<br>Vendor Directory<br>Newsletter</p></div>
+      <div><h4>Company</h4><p>About CafeSeeders<br>Advertise With Us<br>Contact<br>Privacy Policy</p></div>
+    </div>
+  </div>
+
+  <div class="ann-grid">
+    <div class="ann-item"><div class="ann-dot">①</div><div><strong>히어로 서브헤드</strong><span>Naturetea 파트너 배지로 신뢰도 강화. 플랫폼 성장에 따라 수치 업데이트</span></div></div>
+    <div class="ann-item"><div class="ann-dot">②</div><div><strong>통합 검색바</strong><span>카테고리 드롭다운 + 키워드 검색. 자동완성(Autocomplete) + 지역 자동감지</span></div></div>
+    <div class="ann-item"><div class="ann-dot">③</div><div><strong>히어로 하단 배너 광고</strong><span>728×90. 월 $1,200 최고 노출 위치. 장비·금융·POS 업체 타겟</span></div></div>
+    <div class="ann-item"><div class="ann-dot">④</div><div><strong>퀵 카테고리 5종</strong><span>Buy / Sell / Start / Trends / Vendors. 진입 의도별 즉시 이동. 마이프차 카드 UI 참조</span></div></div>
+    <div class="ann-item"><div class="ann-dot">⑤</div><div><strong>피처드 리스팅</strong><span>프리미엄 등록 매물 우선 노출. 알고리즘 + 유료 부스트 혼합 방식</span></div></div>
+    <div class="ann-item"><div class="ann-dot">⑥</div><div><strong>트렌딩 콘텐츠</strong><span>조회수/최신순 자동 큐레이션. Naturetea 레시피 자연스럽게 연계</span></div></div>
+    <div class="ann-item"><div class="ann-dot">⑦</div><div><strong>뉴스레터 CTA</strong><span>Mailchimp 연동. 구독자 대상 이메일 광고로 추가 수익 창출</span></div></div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ══════════════════════════════════════════
+     SCR-002: MARKETPLACE
+══════════════════════════════════════════ -->
+<div class="scr-section" id="s002">
+  <div class="scr-header"><span class="scr-badge">SCR-002</span><span class="scr-title">마켓플레이스 — 매물 리스트</span></div>
+  <div class="scr-desc">카페 매물 전체 목록. 지역·가격·타입 필터 + 리스트/지도 뷰 전환 + 사이드바 Sticky 광고 포함.</div>
+
+  <div class="wf-shell">
+    <div class="browser-bar"><div class="b-dot r"></div><div class="b-dot y"></div><div class="b-dot g"></div><div class="b-url">cafeseeders.com/marketplace</div></div>
+    <div class="wf-nav">
+      <div class="wf-logo">☕ CafeSeeders</div>
+      <div class="nav-links"><a class="on">Marketplace</a><a>Startup Guide</a><a>Trends & Recipes</a><a>Vendors</a><a>Advertise</a></div>
+      <div class="nav-right"><button class="btn btn-ghost">Log In</button><button class="btn btn-cta">List My Cafe</button></div>
+    </div>
+
+    <div class="filter-bar">
+      <span class="fl">Region:</span>
+      <span class="chip on">All SoCal</span><span class="chip">Los Angeles</span><span class="chip">Orange County</span><span class="chip">San Diego</span><span class="chip">Inland Empire</span>
+      <span class="chip">Price</span><span class="chip">Size</span><span class="chip">Revenue</span><span class="chip">Type</span>
+      <span style="margin-left:auto;font-size:11.5px;color:var(--caramel);font-weight:600;cursor:pointer;">⊞ Map View</span>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 280px;">
+      <div style="padding:14px 22px;">
+        <div style="font-size:12px;color:var(--gray-500);margin-bottom:12px;">① 128 cafes in Southern California · Sort: <strong style="color:var(--espresso);">Newest First</strong></div>
+
+        <div class="ad-zone" style="margin:0 0 14px;">
+          <div class="ad-label">② 인라인 광고 — 300×250 (리스트 상단)</div>
+          <div class="ad-inner" style="display:flex;align-items:center;justify-content:center;gap:12px;height:70px;"><span style="font-size:18px;">⚙️</span><div><strong>Espresso Parts World</strong><br><span style="font-size:11px;">OEM Parts · Fast SoCal Shipping</span></div></div>
+        </div>
+
+        <div class="card-grid g2" style="padding:0;margin-bottom:14px;">
+          <div class="lc"><div class="lc-img">☕<span class="lc-badge prem">PREMIUM</span></div><div class="lc-body"><div class="lc-title">Artisan Coffee Bar — DTLA</div><div class="lc-loc">📍 Downtown LA · 800 sq ft</div><div class="lc-price">$220,000</div><div class="lc-tags"><span class="lc-tag">$32k/mo</span><span class="lc-tag">Prime Location</span></div></div></div>
+          <div class="lc"><div class="lc-img">🧋<span class="lc-badge">NEW</span></div><div class="lc-body"><div class="lc-title">Boba & Coffee — Rowland Heights</div><div class="lc-loc">📍 Rowland Heights · 720 sq ft</div><div class="lc-price">$78,000</div><div class="lc-tags"><span class="lc-tag">$11k/mo</span><span class="lc-tag">Strip Mall</span></div></div></div>
+          <div class="lc"><div class="lc-img">🌿</div><div class="lc-body"><div class="lc-title">Plant-Based Cafe — Pasadena</div><div class="lc-loc">📍 Pasadena · 1,100 sq ft</div><div class="lc-price">$145,000</div><div class="lc-tags"><span class="lc-tag">$19k/mo</span><span class="lc-tag">Turnkey</span></div></div></div>
+          <div class="lc"><div class="lc-img">☕<span class="lc-badge prem">PREMIUM</span></div><div class="lc-body"><div class="lc-title">Korean Cafe — Garden Grove</div><div class="lc-loc">📍 Garden Grove · 950 sq ft</div><div class="lc-price">$168,000</div><div class="lc-tags"><span class="lc-tag">$25k/mo</span><span class="lc-tag">Loyal Clientele</span></div></div></div>
+        </div>
+
+        <div style="display:flex;gap:5px;justify-content:center;">
+          <button style="padding:5px 11px;border:1px solid var(--caramel);background:var(--caramel);color:white;border-radius:4px;font-size:12px;">1</button>
+          <button style="padding:5px 11px;border:1px solid var(--gray-300);background:white;color:var(--gray-700);border-radius:4px;font-size:12px;">2</button>
+          <button style="padding:5px 11px;border:1px solid var(--gray-300);background:white;color:var(--gray-700);border-radius:4px;font-size:12px;">3</button>
+          <button style="padding:5px 11px;border:1px solid var(--gray-300);background:white;color:var(--gray-700);border-radius:4px;font-size:12px;">→</button>
+        </div>
+      </div>
+
+      <!-- SIDEBAR AD -->
+      <div style="background:var(--gray-100);padding:14px;border-left:1px solid var(--gray-300);">
+        <div style="font-size:9.5px;font-weight:700;color:var(--gray-500);margin-bottom:8px;letter-spacing:1px;">③ SPONSORED</div>
+        <div style="background:white;border:1.5px solid var(--caramel);border-radius:8px;padding:14px;margin-bottom:12px;text-align:center;">
+          <div style="font-size:22px;margin-bottom:7px;">🔧</div>
+          <div style="font-size:12px;font-weight:700;color:var(--espresso);">Nuova Simonelli<br>SoCal</div>
+          <div style="font-size:10.5px;color:var(--gray-500);margin:5px 0;">Professional Espresso Machines for SoCal Cafes</div>
+          <button class="btn-full btn-cta" style="font-size:11px;padding:7px;">Learn More</button>
+        </div>
+        <div style="background:white;border:1px solid var(--gray-300);border-radius:8px;padding:12px;">
+          <div style="font-size:11.5px;font-weight:700;color:var(--espresso);margin-bottom:5px;">List Your Cafe</div>
+          <div style="font-size:10.5px;color:var(--gray-500);margin-bottom:8px;">Free 30-day listing. Premium from $49/mo.</div>
+          <button class="btn-full" style="background:var(--caramel);color:white;font-size:11px;padding:7px;">+ List My Cafe</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="ann-grid">
+    <div class="ann-item"><div class="ann-dot">①</div><div><strong>결과 수 & 정렬</strong><span>최신순·가격순·수익순 정렬. 결과 수 실시간 카운트</span></div></div>
+    <div class="ann-item"><div class="ann-dot">②</div><div><strong>인라인 광고</strong><span>리스트 상단 300×250. 스크롤 후 4번째 카드 이후도 삽입 가능</span></div></div>
+    <div class="ann-item"><div class="ann-dot">③</div><div><strong>사이드바 Sticky 광고</strong><span>300×250. 스크롤 시에도 항상 노출. $800/월. 장비·파이낸싱 업체 타겟</span></div></div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ══════════════════════════════════════════
+     SCR-003: LISTING DETAIL
+══════════════════════════════════════════ -->
+<div class="scr-section" id="s003">
+  <div class="scr-header"><span class="scr-badge">SCR-003</span><span class="scr-title">매물 상세 페이지</span></div>
+  <div class="scr-desc">개별 카페 매물 상세 정보. 포토 갤러리 · 핵심 재무 지표 · 탭 메뉴 · 셀러 문의 폼 · 사이드바 광고.</div>
+
+  <div class="wf-shell">
+    <div class="browser-bar"><div class="b-dot r"></div><div class="b-dot y"></div><div class="b-dot g"></div><div class="b-url">cafeseeders.com/listings/artisan-coffee-bar-dtla</div></div>
+    <div class="wf-nav"><div class="wf-logo">☕ CafeSeeders</div><div class="nav-links"><a class="on">Marketplace</a><a>Startup Guide</a><a>Trends & Recipes</a><a>Vendors</a><a>Advertise</a></div><div class="nav-right"><button class="btn btn-ghost">Log In</button><button class="btn btn-cta">List My Cafe</button></div></div>
+
+    <div style="display:grid;grid-template-columns:1fr 290px;">
+      <div style="padding:20px 26px;border-right:1px solid var(--gray-300);">
+        <div style="font-size:10.5px;color:var(--gray-500);margin-bottom:12px;">Marketplace › Los Angeles › <strong style="color:var(--espresso);">Artisan Coffee Bar</strong></div>
+
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px;">
+          <div>
+            <div style="display:flex;gap:7px;margin-bottom:6px;">
+              <span style="background:var(--espresso);color:var(--caramel);font-size:9.5px;padding:2px 8px;border-radius:4px;font-weight:700;">① PREMIUM</span>
+              <span style="background:var(--sage-lt);color:var(--sage);font-size:9.5px;padding:2px 8px;border-radius:4px;font-weight:700;">VERIFIED</span>
+            </div>
+            <h2 style="font-family:'Playfair Display',serif;font-size:19px;font-weight:700;color:var(--espresso);">Artisan Coffee Bar — Downtown LA</h2>
+            <p style="font-size:12px;color:var(--gray-500);">📍 800 sq ft · 30 seats · Near Metro · Est. 2018</p>
+          </div>
+          <div style="text-align:right;">
+            <div style="font-size:26px;font-weight:800;color:var(--caramel);font-family:'Playfair Display',serif;">$220,000</div>
+            <div style="font-size:10.5px;color:var(--gray-500);">Asking Price</div>
+          </div>
+        </div>
+
+        <!-- PHOTO GALLERY -->
+        <div style="display:grid;grid-template-columns:2fr 1fr 1fr;gap:5px;height:148px;margin-bottom:14px;">
+          <div style="background:linear-gradient(135deg,#F5E6D3,#C97A2F55);border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:34px;">☕</div>
+          <div style="display:grid;gap:5px;">
+            <div style="background:linear-gradient(135deg,#D6E8D3,#4A674155);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:18px;">🪑</div>
+            <div style="background:linear-gradient(135deg,#FDF6EC,#C97A2F44);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:18px;">🔧</div>
+          </div>
+          <div style="background:linear-gradient(135deg,#E8DDD5,#3D1E0833);border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:18px;position:relative;">
+            🌆
+            <div style="position:absolute;bottom:7px;right:7px;background:rgba(28,16,8,.7);color:var(--caramel);font-size:9.5px;padding:2px 7px;border-radius:4px;font-weight:700;">② +8 Photos</div>
+          </div>
+        </div>
+
+        <!-- KEY STATS -->
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin-bottom:16px;">
+          <div style="background:var(--cream);border-radius:8px;padding:11px;text-align:center;">
+            <div style="font-size:17px;font-weight:800;color:var(--caramel);">$32k</div>
+            <div style="font-size:9.5px;color:var(--gray-500);">③ Monthly Revenue</div>
+          </div>
+          <div style="background:var(--cream);border-radius:8px;padding:11px;text-align:center;">
+            <div style="font-size:17px;font-weight:800;color:var(--caramel);">5 yrs</div>
+            <div style="font-size:9.5px;color:var(--gray-500);">Lease Remaining</div>
+          </div>
+          <div style="background:var(--cream);border-radius:8px;padding:11px;text-align:center;">
+            <div style="font-size:17px;font-weight:800;color:var(--caramel);">$4,800</div>
+            <div style="font-size:9.5px;color:var(--gray-500);">Monthly Rent</div>
+          </div>
+          <div style="background:var(--cream);border-radius:8px;padding:11px;text-align:center;">
+            <div style="font-size:17px;font-weight:800;color:var(--caramel);">7 yrs</div>
+            <div style="font-size:9.5px;color:var(--gray-500);">In Business</div>
+          </div>
+        </div>
+
+        <div class="wf-tabs" style="padding:0;margin:0 -26px;">
+          <div class="wf-tab on">Details</div><div class="wf-tab">④ Equipment</div><div class="wf-tab">Financials</div><div class="wf-tab">Location</div>
+        </div>
+        <div style="padding:14px 0;font-size:12.5px;color:var(--gray-700);line-height:1.75;">
+          Well-established artisan coffee bar in the heart of Downtown LA with a strong loyal customer base. Fully equipped with La Marzocco Linea PB, Mahlkonig E65S grinders, and complete kitchen setup. Owner retiring after 7 successful years of operation.
+        </div>
+      </div>
+
+      <!-- CONTACT SIDEBAR -->
+      <div style="background:var(--gray-100);padding:16px;">
+        <div style="background:white;border:2px solid var(--caramel);border-radius:10px;padding:16px;margin-bottom:14px;">
+          <div style="font-size:13.5px;font-weight:700;color:var(--espresso);margin-bottom:12px;font-family:'Playfair Display',serif;">⑤ Contact Seller</div>
+          <input class="fl-input" type="text" placeholder="Your Name" style="margin-bottom:8px;">
+          <input class="fl-input" type="email" placeholder="Email Address" style="margin-bottom:8px;">
+          <input class="fl-input" type="tel" placeholder="Phone (Optional)" style="margin-bottom:8px;">
+          <textarea class="fl-input fl-ta" placeholder="Message..." style="margin-bottom:10px;"></textarea>
+          <button class="btn-full btn-cta">Send Message</button>
+          <div style="font-size:10px;color:var(--gray-500);text-align:center;margin-top:7px;">🔒 Your information is secure.</div>
+        </div>
+        <!-- SIDEBAR AD -->
+        <div style="border:1.5px solid var(--caramel);border-radius:8px;overflow:hidden;">
+          <div style="background:var(--caramel-lt);padding:7px 12px;font-size:9.5px;font-weight:700;color:var(--roast);">⑥ SPONSORED</div>
+          <div style="background:white;padding:12px;text-align:center;">
+            <div style="font-size:18px;margin-bottom:5px;">🏦</div>
+            <div style="font-size:12px;font-weight:700;color:var(--espresso);">SBA Loan for Cafe Purchase</div>
+            <div style="font-size:10.5px;color:var(--gray-500);margin:4px 0;">Up to $500k. Fast Approval.</div>
+            <button class="btn btn-cta" style="margin-top:6px;width:100%;">Get a Quote</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="ann-grid">
+    <div class="ann-item"><div class="ann-dot">①</div><div><strong>PREMIUM / VERIFIED 배지</strong><span>유료 리스팅 배지 + 관리자 인증 배지. 신뢰도 핵심 지표</span></div></div>
+    <div class="ann-item"><div class="ann-dot">②</div><div><strong>포토 갤러리</strong><span>최대 15장 업로드. 주사진 1장 + 썸네일 그리드. 클릭 시 라이트박스</span></div></div>
+    <div class="ann-item"><div class="ann-dot">③</div><div><strong>핵심 재무 지표 4종</strong><span>카페 특화 정보: 월매출·임대료·임대 잔여·영업 연수. 바이어 의사결정 핵심</span></div></div>
+    <div class="ann-item"><div class="ann-dot">④</div><div><strong>4탭 메뉴</strong><span>Details / Equipment(장비 목록) / Financials(손익) / Location(지도). 정보 과부하 방지</span></div></div>
+    <div class="ann-item"><div class="ann-dot">⑤</div><div><strong>문의 폼 Sticky</strong><span>스크롤 시 사이드바 고정. 비회원은 로그인 유도 모달. Seller 알림: 이메일+SMS</span></div></div>
+    <div class="ann-item"><div class="ann-dot">⑥</div><div><strong>상세 사이드바 광고</strong><span>파이낸싱·보험·장비 벤더 광고 최적 위치. $600/월</span></div></div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ══════════════════════════════════════════
+     SCR-004: LIST MY CAFE
+══════════════════════════════════════════ -->
+<div class="scr-section" id="s004">
+  <div class="scr-header"><span class="scr-badge">SCR-004</span><span class="scr-title">매물 등록 (List My Cafe)</span></div>
+  <div class="scr-desc">카페 오너가 매물을 등록하는 3-Step Wizard. Step 1: 카페 기본 정보 / Step 2: 재무 정보 / Step 3: 플랜 선택 & 게시.</div>
+
+  <div class="wf-shell">
+    <div class="browser-bar"><div class="b-dot r"></div><div class="b-dot y"></div><div class="b-dot g"></div><div class="b-url">cafeseeders.com/list-my-cafe</div></div>
+    <div class="wf-nav"><div class="wf-logo">☕ CafeSeeders</div><div class="nav-links"><a>Marketplace</a><a>Startup Guide</a><a>Trends & Recipes</a><a>Vendors</a><a>Advertise</a></div><div class="nav-right"><button class="btn btn-ghost">Log In</button><button class="btn btn-cta">List My Cafe</button></div></div>
+
+    <!-- STEP INDICATOR -->
+    <div class="steps">
+      <div class="step"><div class="step-num done">1</div><div class="step-lbl done">① Cafe Info</div></div>
+      <div class="step-line done"></div>
+      <div class="step"><div class="step-num todo">2</div><div class="step-lbl todo">Financials</div></div>
+      <div class="step-line todo"></div>
+      <div class="step"><div class="step-num todo">3</div><div class="step-lbl todo">Plan & Publish</div></div>
+    </div>
+
+    <div class="wf-form">
+      <div style="font-size:16px;font-weight:700;color:var(--espresso);margin-bottom:18px;font-family:'Playfair Display',serif;">Step 1 — Cafe Basic Information</div>
+      <div class="fl-row">
+        <div class="fl-grp"><label class="fl-label">Cafe Name *</label><input class="fl-input" placeholder="e.g. Morning Brew Cafe"></div>
+        <div class="fl-grp"><label class="fl-label">② Cafe Type *</label>
+          <select class="fl-input" style="background:var(--warm-white);">
+            <option>Select type...</option><option>Specialty Coffee</option><option>Boba / Bubble Tea</option><option>Breakfast Cafe</option><option>Korean Cafe</option><option>Juice / Smoothie</option>
+          </select>
+        </div>
+      </div>
+      <div class="fl-row">
+        <div class="fl-grp"><label class="fl-label">City *</label><input class="fl-input" placeholder="e.g. Los Angeles"></div>
+        <div class="fl-grp"><label class="fl-label">Zip Code *</label><input class="fl-input" placeholder="e.g. 90001"></div>
+      </div>
+      <div class="fl-row">
+        <div class="fl-grp"><label class="fl-label">Square Footage</label><input class="fl-input" placeholder="e.g. 800"></div>
+        <div class="fl-grp"><label class="fl-label">Number of Seats</label><input class="fl-input" placeholder="e.g. 25"></div>
+      </div>
+      <div class="fl-grp"><label class="fl-label">③ Description</label><textarea class="fl-input fl-ta" placeholder="Describe your cafe, its strengths, and why you're selling..."></textarea></div>
+      <div class="fl-grp">
+        <label class="fl-label">④ Photos (up to 15)</label>
+        <div style="border:2px dashed var(--gray-300);border-radius:8px;padding:22px;text-align:center;background:var(--gray-100);">
+          <div style="font-size:22px;margin-bottom:7px;">📷</div>
+          <div style="font-size:12.5px;color:var(--gray-500);">Drag & drop or click to upload</div>
+          <div style="font-size:10.5px;color:var(--gray-300);margin-top:3px;">JPG, PNG up to 10MB each</div>
+        </div>
+      </div>
+      <div style="display:flex;justify-content:flex-end;margin-top:6px;">
+        <button class="btn-full btn-cta" style="width:auto;padding:10px 28px;font-size:13px;">Next: Financials →</button>
+      </div>
+    </div>
+  </div>
+  <div class="ann-grid">
+    <div class="ann-item"><div class="ann-dot">①</div><div><strong>3-Step Wizard</strong><span>진행 상태 시각화. 각 단계 완료 후 다음 단계 활성화. 중간 저장(Draft) 지원</span></div></div>
+    <div class="ann-item"><div class="ann-dot">②</div><div><strong>카페 타입 드롭다운</strong><span>카페 특화 6개 카테고리. 검색 필터·알고리즘 연동</span></div></div>
+    <div class="ann-item"><div class="ann-dot">③</div><div><strong>Description 텍스트에어리어</strong><span>Phase 2에서 AI 작성 도우미(Draft with AI) 버튼 추가 예정</span></div></div>
+    <div class="ann-item"><div class="ann-dot">④</div><div><strong>포토 업로드</strong><span>AWS S3 저장. 첫 번째 사진 자동 대표 이미지 설정. 드래그&드롭 재순서</span></div></div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ══════════════════════════════════════════
+     SCR-005: STARTUP GUIDE
+══════════════════════════════════════════ -->
+<div class="scr-section" id="s005">
+  <div class="scr-header"><span class="scr-badge">SCR-005</span><span class="scr-title">창업 가이드 (Startup Guide)</span></div>
+  <div class="scr-desc">카페 창업·인수 정보 허브. 6개 카테고리 카드 + 오픈 10단계 + 벤더 연동 CTA.</div>
+
+  <div class="wf-shell">
+    <div class="browser-bar"><div class="b-dot r"></div><div class="b-dot y"></div><div class="b-dot g"></div><div class="b-url">cafeseeders.com/startup-guide</div></div>
+    <div class="wf-nav"><div class="wf-logo">☕ CafeSeeders</div><div class="nav-links"><a>Marketplace</a><a class="on">Startup Guide</a><a>Trends & Recipes</a><a>Vendors</a><a>Advertise</a></div><div class="nav-right"><button class="btn btn-ghost">Log In</button><button class="btn btn-cta">List My Cafe</button></div></div>
+
+    <div style="background:linear-gradient(135deg,var(--espresso),var(--roast));padding:32px 28px;color:white;">
+      <div style="font-size:10px;color:rgba(201,122,47,.7);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:7px;">Startup Guide</div>
+      <h2 style="font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:white;margin-bottom:7px;">① Seed Your Cafe — Complete Guide</h2>
+      <p style="font-size:12px;color:rgba(255,255,255,.5);max-width:460px;">처음 카페를 시작하거나 기존 카페를 인수하려는 분들을 위한 CafeSeeders 완벽 가이드</p>
+    </div>
+
+    <div style="padding:18px 28px;">
+      <div style="font-size:13.5px;font-weight:700;color:var(--espresso);margin-bottom:12px;font-family:'Playfair Display',serif;">② 카테고리별 가이드</div>
+      <div class="card-grid g3" style="padding:0;margin-bottom:20px;">
+        <div class="gc"><div class="gc-icon">🏪</div><div class="gc-title">카페 인수 요령</div><div class="gc-sub">Due diligence, 가격 협상, 계약 주의사항</div><div class="gc-count">8 articles →</div></div>
+        <div class="gc"><div class="gc-icon">🔨</div><div class="gc-title">카페 리모델링 가이드</div><div class="gc-sub">인테리어, 공사, 퍼밋, 예산 계획</div><div class="gc-count">6 articles →</div></div>
+        <div class="gc"><div class="gc-icon">☕</div><div class="gc-title">장비 구매 가이드</div><div class="gc-sub">에스프레소 머신, 그라인더, POS 비교</div><div class="gc-count">10 articles →</div></div>
+        <div class="gc"><div class="gc-icon">👥</div><div class="gc-title">직원 채용 가이드</div><div class="gc-sub">Indeed, 구인 템플릿, 바리스타 트레이닝</div><div class="gc-count">5 articles →</div></div>
+        <div class="gc"><div class="gc-icon">📱</div><div class="gc-title">소셜미디어 마케팅</div><div class="gc-sub">Instagram, TikTok, 마케팅 업체 정보</div><div class="gc-count">7 articles →</div></div>
+        <div class="gc" style="background:var(--caramel-lt);border-color:var(--caramel);">
+          <div class="gc-icon">🏢</div><div class="gc-title">③ 벤더 디렉토리</div><div class="gc-sub">검증된 SoCal 카페 전문 업체 목록</div><div class="gc-count" style="color:var(--caramel);">80+ vendors →</div>
+        </div>
+      </div>
+
+      <div style="font-size:13.5px;font-weight:700;color:var(--espresso);margin-bottom:12px;font-family:'Playfair Display',serif;">④ 카페 오픈까지 10단계</div>
+      <div style="background:white;border:1px solid var(--gray-300);border-radius:10px;padding:18px;display:grid;grid-template-columns:repeat(5,1fr);gap:12px;">
+        <div style="text-align:center;padding:12px 8px;">
+          <div style="width:34px;height:34px;border-radius:50%;background:var(--caramel);color:white;font-weight:800;font-size:13px;display:flex;align-items:center;justify-content:center;margin:0 auto 8px;">1</div>
+          <div style="font-size:11.5px;font-weight:700;color:var(--espresso);">시장 조사</div>
+          <div style="font-size:10px;color:var(--gray-500);margin-top:3px;">지역 분석</div>
+        </div>
+        <div style="text-align:center;padding:12px 8px;">
+          <div style="width:34px;height:34px;border-radius:50%;background:var(--caramel);color:white;font-weight:800;font-size:13px;display:flex;align-items:center;justify-content:center;margin:0 auto 8px;">2</div>
+          <div style="font-size:11.5px;font-weight:700;color:var(--espresso);">비즈니스 플랜</div>
+          <div style="font-size:10px;color:var(--gray-500);margin-top:3px;">예산·수익 계획</div>
+        </div>
+        <div style="text-align:center;padding:12px 8px;">
+          <div style="width:34px;height:34px;border-radius:50%;background:var(--caramel);color:white;font-weight:800;font-size:13px;display:flex;align-items:center;justify-content:center;margin:0 auto 8px;">3</div>
+          <div style="font-size:11.5px;font-weight:700;color:var(--espresso);">입지 선정</div>
+          <div style="font-size:10px;color:var(--gray-500);margin-top:3px;">인수 or 신규</div>
+        </div>
+        <div style="text-align:center;padding:12px 8px;">
+          <div style="width:34px;height:34px;border-radius:50%;background:var(--caramel);color:white;font-weight:800;font-size:13px;display:flex;align-items:center;justify-content:center;margin:0 auto 8px;">4</div>
+          <div style="font-size:11.5px;font-weight:700;color:var(--espresso);">법인 & 퍼밋</div>
+          <div style="font-size:10px;color:var(--gray-500);margin-top:3px;">Health permit</div>
+        </div>
+        <div style="text-align:center;padding:12px 8px;">
+          <div style="width:34px;height:34px;border-radius:50%;background:var(--sage);color:white;font-weight:800;font-size:13px;display:flex;align-items:center;justify-content:center;margin:0 auto 8px;">5</div>
+          <div style="font-size:11.5px;font-weight:700;color:var(--espresso);">장비 구매</div>
+          <div style="font-size:10px;color:var(--gray-500);margin-top:3px;">+ More →</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="ann-grid">
+    <div class="ann-item"><div class="ann-dot">①</div><div><strong>가이드 히어로</strong><span>"Seed Your Cafe" — CafeSeeders 브랜드 스토리와 연계된 네이밍. SEO 핵심 페이지</span></div></div>
+    <div class="ann-item"><div class="ann-dot">②</div><div><strong>6개 카테고리 카드</strong><span>마이프차 참조 카드 UI. 아티클 수 표시로 콘텐츠 풍부함 어필</span></div></div>
+    <div class="ann-item"><div class="ann-dot">③</div><div><strong>벤더 CTA 카드</strong><span>창업 가이드 → 벤더 디렉토리 연결. 광고 수익 자연스러운 유입 경로</span></div></div>
+    <div class="ann-item"><div class="ann-dot">④</div><div><strong>10단계 시각화</strong><span>체크리스트 PDF 다운로드 연동 예정. 단계별 관련 벤더 연결 가능</span></div></div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ══════════════════════════════════════════
+     SCR-006: TRENDS & RECIPES
+══════════════════════════════════════════ -->
+<div class="scr-section" id="s006">
+  <div class="scr-header"><span class="scr-badge">SCR-006</span><span class="scr-title">트렌드 & 레시피</span></div>
+  <div class="scr-desc">카페 트렌드·레시피·업계 뉴스 콘텐츠 허브. Naturetea 제품 연계 레시피 + 스폰서 콘텐츠 포함.</div>
+
+  <div class="wf-shell">
+    <div class="browser-bar"><div class="b-dot r"></div><div class="b-dot y"></div><div class="b-dot g"></div><div class="b-url">cafeseeders.com/trends</div></div>
+    <div class="wf-nav"><div class="wf-logo">☕ CafeSeeders</div><div class="nav-links"><a>Marketplace</a><a>Startup Guide</a><a class="on">Trends & Recipes</a><a>Vendors</a><a>Advertise</a></div><div class="nav-right"><button class="btn btn-ghost">Log In</button><button class="btn btn-cta">List My Cafe</button></div></div>
+
+    <div class="wf-tabs"><div class="wf-tab on">All</div><div class="wf-tab">Trends</div><div class="wf-tab">Recipes</div><div class="wf-tab">Marketing</div><div class="wf-tab">Industry News</div></div>
+
+    <div style="padding:18px 28px 0;">
+      <!-- FEATURED -->
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:18px;border:1px solid var(--gray-300);border-radius:12px;overflow:hidden;margin-bottom:18px;">
+        <div style="background:linear-gradient(135deg,#D6E8D3,#4A6741);display:flex;align-items:center;justify-content:center;font-size:52px;min-height:170px;">🍵</div>
+        <div style="padding:20px;">
+          <div style="font-size:10px;color:var(--caramel);font-weight:700;letter-spacing:.5px;margin-bottom:5px;">① FEATURED TREND · SUMMER 2025</div>
+          <div style="font-family:'Playfair Display',serif;font-size:17px;font-weight:700;color:var(--espresso);line-height:1.3;margin-bottom:7px;">Matcha Everything: Why Green is SoCal's Color of Summer</div>
+          <div style="font-size:12px;color:var(--gray-500);margin-bottom:12px;">From matcha lemonade to matcha horchata, LA cafes can't get enough. Here's how to add it to your menu.</div>
+          <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
+            <span style="font-size:10px;background:var(--sage-lt);color:var(--sage);padding:2px 8px;border-radius:4px;font-weight:700;">② Naturetea Matcha</span>
+            <span style="font-size:10.5px;color:var(--gray-500);">5 min · 6.2k views</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="ad-zone" style="margin:0 0 18px;">
+        <div class="ad-label">③ 콘텐츠 페이지 728×90 배너 ($800/월)</div>
+        <div class="ad-inner">☕ [SPONSOR] Naturetea Premium Matcha & Tea Ingredients — Wholesale for SoCal Cafes → naturetea.com</div>
+      </div>
+
+      <div class="card-grid g3" style="padding:0;padding-bottom:18px;">
+        <div class="cc"><div class="cc-img caramel">🧃</div><div class="cc-body"><div class="cc-tag">RECIPE</div><div class="cc-title">Brown Sugar Tiger Oat Milk Latte</div><div class="cc-meta">4 min · 3.1k views</div></div></div>
+        <div class="cc" style="border-color:var(--caramel);">
+          <div class="cc-img espresso">📊</div>
+          <div class="cc-body"><div class="cc-tag" style="color:var(--caramel);">③ SPONSORED</div><div class="cc-title">How POS Systems Are Changing SoCal Cafe Ops</div><div class="cc-meta">6 min · by Toast POS</div></div>
+        </div>
+        <div class="cc"><div class="cc-img sage">🌿</div><div class="cc-body"><div class="cc-tag">RECIPE</div><div class="cc-title">Butterfly Pea Color-Changing Lemonade</div><div class="cc-meta">3 min · 2.8k views</div></div></div>
+      </div>
+    </div>
+  </div>
+  <div class="ann-grid">
+    <div class="ann-item"><div class="ann-dot">①</div><div><strong>피처드 아티클</strong><span>에디터 픽 또는 조회수 기반 자동 큐레이션. 시즌 이벤트 연동 가능</span></div></div>
+    <div class="ann-item"><div class="ann-dot">②</div><div><strong>Naturetea 태그</strong><span>자사 제품 자연스러운 연계. 클릭 시 Naturetea 제품 페이지 또는 도매 문의로 이동</span></div></div>
+    <div class="ann-item"><div class="ann-dot">③</div><div><strong>스폰서 콘텐츠 + 배너</strong><span>SPONSORED 명확히 표기. 단가 $400/편 + 배너 $800/월 별도</span></div></div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ══════════════════════════════════════════
+     SCR-007: VENDOR DIRECTORY
+══════════════════════════════════════════ -->
+<div class="scr-section" id="s007">
+  <div class="scr-header"><span class="scr-badge">SCR-007</span><span class="scr-title">벤더 디렉토리</span></div>
+  <div class="scr-desc">카페 창업·운영 서비스 업체 디렉토리. 카테고리 필터 · 프리미엄/일반 구분 · 등록 신청 CTA.</div>
+
+  <div class="wf-shell">
+    <div class="browser-bar"><div class="b-dot r"></div><div class="b-dot y"></div><div class="b-dot g"></div><div class="b-url">cafeseeders.com/vendors</div></div>
+    <div class="wf-nav"><div class="wf-logo">☕ CafeSeeders</div><div class="nav-links"><a>Marketplace</a><a>Startup Guide</a><a>Trends & Recipes</a><a class="on">Vendors</a><a>Advertise</a></div><div class="nav-right"><button class="btn btn-ghost">Log In</button><button class="btn btn-cta">List My Cafe</button></div></div>
+
+    <div class="filter-bar">
+      <span class="fl">Category:</span>
+      <span class="chip on">All</span><span class="chip">☕ Equipment</span><span class="chip">🎨 Interior</span><span class="chip">💻 POS</span><span class="chip">📱 Marketing</span><span class="chip">👥 Staffing</span><span class="chip">⚖️ Legal/CPA</span><span class="chip">🏦 Finance</span>
+    </div>
+
+    <div style="padding:14px 28px;">
+      <div style="font-size:10.5px;color:var(--caramel);font-weight:700;margin-bottom:10px;display:flex;align-items:center;gap:5px;">★ ① PREMIUM VENDORS</div>
+      <div class="card-grid g2" style="padding:0;margin-bottom:18px;">
+        <div class="vc gold"><div class="vc-icon" style="background:var(--caramel-lt);border:1px solid var(--caramel);">☕</div><div class="vc-info"><h4>La Marzocco — SoCal Distributor</h4><p>Official distributor for La Marzocco espresso machines in Southern California</p><div class="vc-cat">Equipment · ★★★★★ (48 reviews)</div></div></div>
+        <div class="vc gold"><div class="vc-icon" style="background:#EEF2FF;border:1px solid #6366F1;">💻</div><div class="vc-info"><h4>Toast POS — Restaurant Tech</h4><p>Cloud-based POS system built for cafes. Free setup for CafeSeeders partners.</p><div class="vc-cat">POS / Tech · ★★★★☆ (32 reviews)</div></div></div>
+      </div>
+
+      <div style="font-size:10px;font-weight:700;color:var(--gray-500);letter-spacing:1px;text-transform:uppercase;margin-bottom:10px;">② ALL VENDORS (78 total)</div>
+      <div class="card-grid g2" style="padding:0;">
+        <div class="vc"><div class="vc-icon" style="background:var(--sage-pale);border:1px solid var(--sage-lt);">🎨</div><div class="vc-info"><h4>SoCal Cafe Design Studio</h4><p>Interior design specializing in cafe and restaurant spaces.</p><div class="vc-cat">Interior / Remodeling</div></div></div>
+        <div class="vc"><div class="vc-icon" style="background:#FFF7ED;border:1px solid #FCA5A5;">📱</div><div class="vc-info"><h4>Cafe Social Media Co.</h4><p>Instagram & TikTok management for cafes. Content + paid ads.</p><div class="vc-cat">Marketing & Social</div></div></div>
+        <div class="vc"><div class="vc-icon" style="background:#EFF6FF;border:1px solid #BFDBFE;">👥</div><div class="vc-info"><h4>BrewStaff — Barista Hiring</h4><p>Specialized staffing agency for cafes in SoCal.</p><div class="vc-cat">Staffing & HR</div></div></div>
+        <div class="vc"><div class="vc-icon" style="background:var(--sage-pale);border:1px solid var(--sage-lt);">⚖️</div><div class="vc-info"><h4>Kim & Associates CPA</h4><p>Accounting & tax for Korean-American cafe owners in SoCal.</p><div class="vc-cat">Legal / CPA</div></div></div>
+      </div>
+
+      <div style="background:var(--cream);border:2px dashed var(--caramel);border-radius:10px;padding:16px;margin-top:16px;text-align:center;">
+        <div style="font-family:'Playfair Display',serif;font-size:14px;font-weight:700;color:var(--espresso);margin-bottom:4px;">③ Are you a vendor? Register your business on CafeSeeders</div>
+        <div style="font-size:11.5px;color:var(--gray-500);margin-bottom:10px;">기본 등록 무료 · 프리미엄 등록 $29~$99/월</div>
+        <button class="btn btn-cta" style="font-size:12.5px;padding:8px 22px;">Register My Business</button>
+      </div>
+    </div>
+  </div>
+  <div class="ann-grid">
+    <div class="ann-item"><div class="ann-dot">①</div><div><strong>프리미엄 벤더 강조</strong><span>카라멜 골드 테두리 + 상단 고정. 월 $29~$99 유료 등록 차별화</span></div></div>
+    <div class="ann-item"><div class="ann-dot">②</div><div><strong>전체 벤더 수 표시</strong><span>신뢰도 지표. 초기 Naturetea 파트너 업체 우선 입점으로 빠른 Pool 구축</span></div></div>
+    <div class="ann-item"><div class="ann-dot">③</div><div><strong>벤더 등록 CTA</strong><span>B2B 수익 핵심 모듈. 플랫폼 성장에 따라 광고 단가 자동 상승 구조</span></div></div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ══════════════════════════════════════════
+     SCR-008: ADVERTISE
+══════════════════════════════════════════ -->
+<div class="scr-section" id="s008">
+  <div class="scr-header"><span class="scr-badge">SCR-008</span><span class="scr-title">광고 신청 (Advertise With Us)</span></div>
+  <div class="scr-desc">벤더·서비스 업체를 위한 3단계 광고 패키지 안내 및 신청 페이지.</div>
+
+  <div class="wf-shell">
+    <div class="browser-bar"><div class="b-dot r"></div><div class="b-dot y"></div><div class="b-dot g"></div><div class="b-url">cafeseeders.com/advertise</div></div>
+    <div class="wf-nav"><div class="wf-logo">☕ CafeSeeders</div><div class="nav-links"><a>Marketplace</a><a>Startup Guide</a><a>Trends & Recipes</a><a>Vendors</a><a class="on">Advertise</a></div><div class="nav-right"><button class="btn btn-ghost">Log In</button><button class="btn btn-cta">List My Cafe</button></div></div>
+
+    <div style="background:linear-gradient(135deg,var(--espresso),var(--roast));padding:36px 28px;text-align:center;color:white;">
+      <h2 style="font-family:'Playfair Display',serif;font-size:24px;font-weight:800;margin-bottom:7px;">Reach 10,000+ SoCal Cafe Owners</h2>
+      <p style="font-size:12.5px;color:rgba(255,255,255,.5);">남가주 카페 비즈니스 오너·창업 예정자에게 귀사를 직접 홍보하세요</p>
+    </div>
+
+    <div style="padding:24px 28px;">
+      <div style="font-family:'Playfair Display',serif;font-size:16px;font-weight:700;color:var(--espresso);text-align:center;margin-bottom:18px;">① 광고 패키지 선택</div>
+      <div class="card-grid g3" style="padding:0;margin-bottom:26px;">
+        <div class="pc">
+          <div class="pc-tier" style="color:var(--gray-500);">STARTER</div>
+          <div class="pc-price">$299<span>/mo</span></div>
+          <div class="pc-sub">기본 노출 패키지</div>
+          <div class="pc-feat">✓ 벤더 디렉토리 기본 등록<br>✓ 아티클 사이드바 300×250<br>✓ 월 노출 5,000회 보장</div>
+          <button class="btn-full btn-outline-sage" style="margin-top:14px;">Get Started</button>
+        </div>
+        <div class="pc popular">
+          <div class="popular-badge">MOST POPULAR</div>
+          <div class="pc-tier" style="color:var(--caramel);">GROWTH</div>
+          <div class="pc-price">$799<span>/mo</span></div>
+          <div class="pc-sub">성장 광고 패키지</div>
+          <div class="pc-feat">✓ 마켓플레이스 사이드바<br>✓ 스폰서 아티클 1편/월<br>✓ 뉴스레터 로고 노출<br>✓ 월 노출 20,000회 보장</div>
+          <button class="btn-full btn-cta" style="margin-top:14px;">Get Started</button>
+        </div>
+        <div class="pc gold-plan">
+          <div class="pc-tier" style="color:var(--caramel);">PREMIUM</div>
+          <div class="pc-price">$1,499<span>/mo</span></div>
+          <div class="pc-sub">프리미엄 완전 노출</div>
+          <div class="pc-feat">✓ 홈 히어로 728×90 배너<br>✓ 스폰서 아티클 2편/월<br>✓ 뉴스레터 배너 광고<br>✓ 담당자 전담 관리<br>✓ 월 노출 50,000회 보장</div>
+          <button class="btn-full btn-cta" style="margin-top:14px;">Contact Us</button>
+        </div>
+      </div>
+
+      <div style="background:white;border:1px solid var(--gray-300);border-radius:12px;padding:22px;max-width:540px;margin:0 auto;">
+        <div style="font-family:'Playfair Display',serif;font-size:14px;font-weight:700;color:var(--espresso);margin-bottom:14px;">② 광고 문의 폼</div>
+        <div class="fl-row"><div class="fl-grp"><label class="fl-label">Company Name</label><input class="fl-input" placeholder="Your company"></div><div class="fl-grp"><label class="fl-label">Contact Name</label><input class="fl-input" placeholder="Your name"></div></div>
+        <div class="fl-row"><div class="fl-grp"><label class="fl-label">Email</label><input class="fl-input" placeholder="you@company.com"></div><div class="fl-grp"><label class="fl-label">Phone</label><input class="fl-input" placeholder="(xxx) xxx-xxxx"></div></div>
+        <div class="fl-grp"><label class="fl-label">Package Interest</label>
+          <select class="fl-input" style="background:var(--warm-white);"><option>Select package...</option><option>Starter ($299)</option><option>Growth ($799)</option><option>Premium ($1,499)</option><option>Custom Package</option></select>
+        </div>
+        <button class="btn-full btn-cta">Send Inquiry</button>
+      </div>
+    </div>
+  </div>
+  <div class="ann-grid">
+    <div class="ann-item"><div class="ann-dot">①</div><div><strong>3단계 패키지</strong><span>Starter·Growth·Premium 가격 차등. MOST POPULAR 배지로 Growth 선택 유도</span></div></div>
+    <div class="ann-item"><div class="ann-dot">②</div><div><strong>광고 문의 폼</strong><span>이메일·전화 수집 후 영업팀 연결. 초기에는 Naturetea 팀 직접 관리</span></div></div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ══════════════════════════════════════════
+     SPEC TABLES
+══════════════════════════════════════════ -->
+<div class="divider"></div>
+
+<!-- ══════════════════════════════════════════
+     SCR-010: COMPLIANCE / LICENSE DISCLOSURE
+══════════════════════════════════════════ -->
+<div class="scr-section" id="s010">
+  <div class="scr-header"><span class="scr-badge">SCR-010</span><span class="scr-title">Compliance & License Disclosure 고지 화면</span></div>
+  <div class="scr-desc">사이트 전체 푸터 및 관련 서비스 페이지에 법적 Compliance 요건에 따라 라이선스 번호를 명시합니다. DRE(부동산) 및 Insurance 라이선스 모두 노출.</div>
+
+  <div class="wf-shell">
+    <div class="browser-bar"><div class="b-dot r"></div><div class="b-dot y"></div><div class="b-dot g"></div><div class="b-url">cafeseeders.com — Global Footer / Compliance</div></div>
+
+    <!-- GLOBAL FOOTER COMPLIANCE BAND -->
+    <div style="background:var(--roast);padding:20px 28px;border-bottom:2px solid var(--caramel);">
+      <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;">
+        <div style="display:flex;align-items:center;gap:14px;">
+          <div style="width:44px;height:44px;background:var(--caramel);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;">👤</div>
+          <div>
+            <div style="font-family:'Playfair Display',serif;font-size:15px;font-weight:700;color:white;">① Kwangjei Cho</div>
+            <div style="font-size:11px;color:rgba(255,255,255,.55);margin-top:2px;">Licensed Agent · cafeseeders.com</div>
+          </div>
+        </div>
+        <div style="display:flex;gap:16px;flex-wrap:wrap;">
+          <div style="background:rgba(255,255,255,.08);border:1px solid rgba(201,122,47,.5);border-radius:7px;padding:9px 16px;text-align:center;">
+            <div style="font-size:9.5px;color:var(--caramel);font-weight:700;letter-spacing:.8px;text-transform:uppercase;margin-bottom:3px;">② California Real Estate</div>
+            <div style="font-size:13px;font-weight:800;color:white;font-family:'Playfair Display',serif;">DRE# 02217090</div>
+          </div>
+          <div style="background:rgba(255,255,255,.08);border:1px solid rgba(201,122,47,.5);border-radius:7px;padding:9px 16px;text-align:center;">
+            <div style="font-size:9.5px;color:var(--caramel);font-weight:700;letter-spacing:.8px;text-transform:uppercase;margin-bottom:3px;">② Insurance License</div>
+            <div style="font-size:13px;font-weight:800;color:white;font-family:'Playfair Display',serif;">Lic# 4349201</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- COMPLIANCE DISCLAIMER TEXT -->
+    <div style="background:var(--espresso);padding:16px 28px;">
+      <div style="font-size:10px;color:rgba(255,255,255,.35);line-height:1.85;max-width:860px;">
+        <strong style="color:rgba(255,255,255,.5);display:block;margin-bottom:5px;">③ Legal Disclaimer</strong>
+        CafeSeeders.com provides business brokerage and real estate referral services through a California-licensed real estate agent (DRE# 02217090).
+        Insurance product referrals and Life Insurance, Annuity, and IRA-related content are provided under Insurance License# 4349201.
+        All financial, insurance, and retirement planning content on this platform is for informational and educational purposes only and does not constitute financial, tax, or legal advice.
+        Users are encouraged to consult with a qualified financial advisor, CPA, or licensed insurance professional before making any financial decisions.
+        · © 2025 CafeSeeders · cafeseeders.com · La Mirada, CA
+      </div>
+    </div>
+
+    <!-- VENDOR PAGE - INSURANCE/FINANCIAL SECTION LICENSE BADGE -->
+    <div style="padding:20px 28px;background:white;border-top:1px solid var(--gray-300);">
+      <div style="font-size:13px;font-weight:700;color:var(--espresso);font-family:'Playfair Display',serif;margin-bottom:14px;">④ 벤더 디렉토리 — Insurance / Financial Planning 섹션 내 라이선스 뱃지</div>
+      <div style="display:flex;gap:12px;flex-wrap:wrap;">
+        <!-- Life Insurance card with badge -->
+        <div style="flex:1;min-width:200px;border:1.5px solid var(--caramel);border-radius:10px;padding:14px;background:var(--caramel-lt);">
+          <div style="font-size:10px;font-weight:700;color:var(--caramel);letter-spacing:.5px;margin-bottom:5px;">LIFE INSURANCE · ANNUITY · IRA</div>
+          <div style="font-size:13px;font-weight:700;color:var(--espresso);margin-bottom:4px;">Kwangjei Cho</div>
+          <div style="font-size:11px;color:var(--gray-500);margin-bottom:8px;">Personalized life insurance, annuity, and retirement account planning for SoCal cafe owners</div>
+          <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px;">
+            <span style="background:var(--espresso);color:var(--caramel);font-size:9.5px;font-weight:700;padding:2px 8px;border-radius:4px;">Ins Lic# 4349201</span>
+            <span style="background:var(--sage);color:white;font-size:9.5px;font-weight:700;padding:2px 8px;border-radius:4px;">SEP-IRA Specialist</span>
+          </div>
+          <button class="btn btn-cta" style="width:100%;font-size:11.5px;padding:7px;">Get a Free Consultation</button>
+        </div>
+        <!-- Real Estate card with badge -->
+        <div style="flex:1;min-width:200px;border:1.5px solid var(--sage);border-radius:10px;padding:14px;background:var(--sage-pale);">
+          <div style="font-size:10px;font-weight:700;color:var(--sage);letter-spacing:.5px;margin-bottom:5px;">CAFE BUSINESS BROKERAGE</div>
+          <div style="font-size:13px;font-weight:700;color:var(--espresso);margin-bottom:4px;">Kwangjei Cho</div>
+          <div style="font-size:11px;color:var(--gray-500);margin-bottom:8px;">Helping SoCal cafe owners buy, sell, and transition their business with confidence</div>
+          <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px;">
+            <span style="background:var(--espresso);color:var(--caramel);font-size:9.5px;font-weight:700;padding:2px 8px;border-radius:4px;">CA DRE# 02217090</span>
+            <span style="background:var(--sage);color:white;font-size:9.5px;font-weight:700;padding:2px 8px;border-radius:4px;">Cafe Specialist</span>
+          </div>
+          <button class="btn btn-sage" style="width:100%;font-size:11.5px;padding:7px;">List My Cafe</button>
+        </div>
+        <!-- CPA/Insurance combined card -->
+        <div style="flex:1;min-width:200px;border:1px solid var(--gray-300);border-radius:10px;padding:14px;background:white;">
+          <div style="font-size:10px;font-weight:700;color:var(--gray-500);letter-spacing:.5px;margin-bottom:5px;">ABOUT THIS PLATFORM</div>
+          <div style="font-size:11.5px;color:var(--gray-700);line-height:1.7;">
+            CafeSeeders connects cafe owners with licensed professionals. All real estate services are provided under <strong style="color:var(--espresso);">CA DRE# 02217090</strong>. Insurance referrals are provided under <strong style="color:var(--espresso);">License# 4349201</strong>. Financial content is educational only.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ARTICLE PAGE - INLINE COMPLIANCE NOTICE -->
+    <div style="padding:16px 28px;background:var(--gray-100);border-top:1px solid var(--gray-300);">
+      <div style="font-size:12.5px;font-weight:700;color:var(--espresso);margin-bottom:8px;font-family:'Playfair Display',serif;">⑤ 콘텐츠 아티클 하단 인라인 Compliance 노티스</div>
+      <div style="background:white;border-left:4px solid var(--caramel);border-radius:0 8px 8px 0;padding:12px 16px;font-size:11px;color:var(--gray-500);line-height:1.8;">
+        <strong style="color:var(--roast);">Disclosure:</strong> This article is provided for informational purposes only by <strong style="color:var(--espresso);">Kwangjei Cho</strong> (CA DRE# 02217090 · Insurance Lic# 4349201) via CafeSeeders.com.
+        Life Insurance, Annuity, and IRA information in this article does not constitute financial advice. Please consult a qualified financial professional before making any decisions.
+      </div>
+    </div>
+  </div>
+
+  <div class="ann-grid">
+    <div class="ann-item"><div class="ann-dot">①</div><div><strong>에이전트 정보 밴드</strong><span>전체 푸터 상단에 Kwangjei Cho 이름 + 사진(아바타) 고정 표시. 모든 페이지에 노출</span></div></div>
+    <div class="ann-item"><div class="ann-dot">②</div><div><strong>라이선스 번호 뱃지</strong><span>DRE# 02217090 (부동산) + Insurance Lic# 4349201 — 두 개 별도 박스로 명확히 구분. California 규정 준수</span></div></div>
+    <div class="ann-item"><div class="ann-dot">③</div><div><strong>법적 면책 조항 (Disclaimer)</strong><span>Real estate / Insurance / Financial content 각각 별도 고지. 작은 글씨이지만 전 페이지 푸터에 항상 노출</span></div></div>
+    <div class="ann-item"><div class="ann-dot">④</div><div><strong>벤더 카드 내 라이선스 뱃지</strong><span>Life Insurance·Annuity·IRA 서비스 카드와 부동산 중개 카드에 각각 라이선스 번호 배지 직접 삽입</span></div></div>
+    <div class="ann-item"><div class="ann-dot">⑤</div><div><strong>아티클 인라인 Disclosure</strong><span>Life Insurance·Annuity·IRA 관련 콘텐츠 하단에 반드시 Disclosure 박스 삽입. Compliance 핵심 요건</span></div></div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<div class="sb-label" style="display:none;"></div><!-- spacer -->
+
+<div class="scr-section" id="spec-nav">
+  <div class="scr-header"><span class="scr-badge">SPEC</span><span class="scr-title">공통 내비게이션 명세</span></div>
+  <div class="flow-wrap">
+    <h3>📐 Global Navigation Spec</h3>
+    <table class="spec-tbl">
+      <tr><th>요소</th><th>스펙</th><th>비고</th></tr>
+      <tr><td>로고</td><td>☕ CafeSeeders · Playfair Display 700 · Color #C97A2F</td><td>SVG 권장</td></tr>
+      <tr><td>배경색</td><td>#1C1008 (Espresso Dark)</td><td>Sticky top:0 적용</td></tr>
+      <tr><td>높이</td><td>54px</td><td>모바일 동일</td></tr>
+      <tr><td>메뉴 항목</td><td>Marketplace · Startup Guide · Trends & Recipes · Vendors · Advertise</td><td>Active: Caramel BG</td></tr>
+      <tr><td>CTA 버튼</td><td>Log In(Ghost) + List My Cafe(Caramel #C97A2F)</td><td>우측 고정</td></tr>
+      <tr><td>모바일 (≤768px)</td><td>햄버거 메뉴 → Slide-in Drawer</td><td>CTA 버튼 별도 고정바</td></tr>
+    </table>
+  </div>
+</div>
+
+<div class="scr-section" id="spec-ads">
+  <div class="scr-header"><span class="scr-badge">SPEC</span><span class="scr-title">광고 존 전체 명세</span></div>
+  <div class="flow-wrap">
+    <h3>📐 Ad Zone Specification</h3>
+    <table class="spec-tbl">
+      <tr><th>광고 위치</th><th>사이즈</th><th>페이지</th><th>단가/월</th><th>형식</th></tr>
+      <tr><td>홈 히어로 하단 배너</td><td>728×90</td><td>Home</td><td>$1,200</td><td>정적/GIF</td></tr>
+      <tr><td>마켓플레이스 사이드바 (Sticky)</td><td>300×250</td><td>Marketplace</td><td>$800</td><td>정적/HTML5</td></tr>
+      <tr><td>콘텐츠 페이지 배너</td><td>728×90</td><td>Trends</td><td>$800</td><td>정적 이미지</td></tr>
+      <tr><td>아티클 인라인</td><td>300×250</td><td>Trends</td><td>$400</td><td>정적 이미지</td></tr>
+      <tr><td>상세 페이지 사이드바</td><td>300×250</td><td>Listing Detail</td><td>$600</td><td>정적 이미지</td></tr>
+      <tr><td>뉴스레터 상단</td><td>600×200</td><td>Email</td><td>$300/회</td><td>정적 이미지</td></tr>
+      <tr><td>푸터 상단 풀배너</td><td>970×90</td><td>전체</td><td>$500</td><td>정적 이미지</td></tr>
+      <tr><td>스폰서 아티클</td><td>전면 콘텐츠</td><td>Trends</td><td>$400/편</td><td>콘텐츠 형식</td></tr>
+    </table>
+  </div>
+</div>
+
+<div class="scr-section" id="spec-color">
+  <div class="scr-header"><span class="scr-badge">SPEC</span><span class="scr-title">컬러 시스템 & 타이포그래피</span></div>
+  <div class="flow-wrap">
+    <h3>📐 Color System</h3>
+    <div style="display:grid;grid-template-columns:repeat(6,1fr);gap:12px;margin-bottom:20px;">
+      <div><div class="swatch" style="background:#1C1008;"></div><div style="font-size:11px;font-weight:700;">Espresso</div><div style="font-size:10px;color:var(--gray-500);">#1C1008</div></div>
+      <div><div class="swatch" style="background:#3D1E08;"></div><div style="font-size:11px;font-weight:700;">Roast</div><div style="font-size:10px;color:var(--gray-500);">#3D1E08</div></div>
+      <div><div class="swatch" style="background:#C97A2F;"></div><div style="font-size:11px;font-weight:700;">Caramel</div><div style="font-size:10px;color:var(--gray-500);">#C97A2F</div></div>
+      <div><div class="swatch" style="background:#F5E6D3;border:1px solid #D6C9BB;"></div><div style="font-size:11px;font-weight:700;">Caramel Lt</div><div style="font-size:10px;color:var(--gray-500);">#F5E6D3</div></div>
+      <div><div class="swatch" style="background:#4A6741;"></div><div style="font-size:11px;font-weight:700;">Sage</div><div style="font-size:10px;color:var(--gray-500);">#4A6741</div></div>
+      <div><div class="swatch" style="background:#FDF6EC;border:1px solid #D6C9BB;"></div><div style="font-size:11px;font-weight:700;">Cream</div><div style="font-size:10px;color:var(--gray-500);">#FDF6EC</div></div>
+    </div>
+    <table class="spec-tbl">
+      <tr><th>요소</th><th>폰트</th><th>사이즈</th><th>Weight</th><th>용도</th></tr>
+      <tr><td>Display / Hero H1</td><td>Playfair Display</td><td>28~38px</td><td>700~800</td><td>브랜드 헤드라인</td></tr>
+      <tr><td>Section Title H2</td><td>Playfair Display</td><td>18~22px</td><td>700</td><td>섹션 제목</td></tr>
+      <tr><td>Card Title</td><td>DM Sans</td><td>12~14px</td><td>700</td><td>카드 타이틀</td></tr>
+      <tr><td>Body / Form</td><td>DM Sans / Noto Sans KR</td><td>12~13px</td><td>400</td><td>본문·한국어</td></tr>
+      <tr><td>Tag / Label / Caption</td><td>DM Sans</td><td>9.5~11px</td><td>600~700</td><td>배지·레이블</td></tr>
+    </table>
+  </div>
+</div>
+
+<!-- FOOTER NOTE -->
+<div style="background:var(--espresso);color:rgba(255,255,255,.4);padding:24px 28px;border-radius:12px;text-align:center;font-size:11.5px;margin-top:40px;margin-bottom:20px;line-height:1.9;">
+  <div style="font-family:'Playfair Display',serif;font-size:16px;font-weight:700;color:var(--caramel);margin-bottom:8px;">☕ CafeSeeders — 화면설계서 v1.0</div>
+  <div style="margin-bottom:10px;">cafeseeders.com · Powered by Naturetea · La Mirada, CA · © 2025 All rights reserved.</div>
+  <div style="display:inline-flex;gap:24px;flex-wrap:wrap;justify-content:center;padding:10px 20px;background:rgba(255,255,255,.06);border-radius:8px;border:1px solid rgba(201,122,47,.3);">
+    <span><strong style="color:var(--caramel);">Kwangjei Cho</strong></span>
+    <span>CA Real Estate · <strong style="color:rgba(255,255,255,.6);">DRE# 02217090</strong></span>
+    <span>Insurance · <strong style="color:rgba(255,255,255,.6);">Lic# 4349201</strong></span>
+  </div>
+  <div style="margin-top:10px;font-size:10px;color:rgba(255,255,255,.25);">본 문서는 내부 기획 및 개발팀 공유용 초안입니다. · All financial content is for informational purposes only and does not constitute financial advice.</div>
+</div>
+
+</main>
+</div>
+
+<script>
+const sections = document.querySelectorAll('.scr-section');
+const links = document.querySelectorAll('.sidebar a');
+window.addEventListener('scroll', () => {
+  let cur = '';
+  sections.forEach(s => { if (window.scrollY >= s.offsetTop - 100) cur = s.id; });
+  links.forEach(l => {
+    l.classList.remove('active');
+    if (l.getAttribute('href') === '#' + cur) l.classList.add('active');
+  });
+});
+links.forEach(l => l.addEventListener('click', e => {
+  e.preventDefault();
+  const id = l.getAttribute('href').replace('#','');
+  document.getElementById(id)?.scrollIntoView({ behavior:'smooth' });
+}));
+</script>
+</body>
+</html>
